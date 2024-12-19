@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Animasi Carousel</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('backgraund.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        
+        .scene {
+            border: 1px solid #0c0404;
+            margin: 40px auto;
+            position: relative;
+            width: 310px;
+            height: 400px;
+            perspective: 1200px;
+        }
+        
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform: translateZ(-200px);
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+        
+        .carousel .cell {
+            position: absolute;
+            width: 100px;
+            height: 125px;
+            left: 55px;
+            top: 10px;
+            border: 2px solid rgb(14, 1, 1);
+            overflow: hidden;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            /* Background gradasi */
+        }
+        
+        .carousel .cell img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .carousel .cell:nth-child(1) {
+            transform: rotateY(0deg) translateZ(200px);
+        }
+        
+        .carousel .cell:nth-child(2) {
+            transform: rotateY(40deg) translateZ(200px);
+        }
+        
+        .carousel .cell:nth-child(3) {
+            transform: rotateY(80deg) translateZ(200px);
+        }
+        
+        .carousel .cell:nth-child(4) {
+            transform: rotateY(120deg) translateZ(200px);
+        }
+        
+        .carousel .cell:nth-child(5) {
+            transform: rotateY(160deg) translateZ(200px);
+        }
+        
+        .carousel .cell:nth-child(6) {
+            transform: rotateY(200deg) translateZ(200px);
+        }
+        
+        .carousel .cell:nth-child(7) {
+            transform: rotateY(240deg) translateZ(200px);
+        }
+        
+        .carousel .cell:nth-child(8) {
+            transform: rotateY(280deg) translateZ(200px);
+        }
+        
+        .carousel .cell:nth-child(9) {
+            transform: rotateY(320deg) translateZ(200px);
+        }
+        
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #851515;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .buttons button:hover {
+            background-color: #a81f1f;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Audio background -->
+    <audio autoplay loop>
+        <source src="No Surprises.mp3" type="audio/mpeg">
+        <source src="music.ogg" type="audio/ogg">
+    </audio>
+
+    <div class="scene">
+        <div class="carousel">
+            <div class="cell"><img src="1.jpg" alt="Image 1"></div>
+            <div class="cell"><img src="2.jpg" alt="Image 2"></div>
+            <div class="cell"><img src="3.jpg" alt="Image 3"></div>
+            <div class="cell"><img src="4.jpg" alt="Image 4"></div>
+            <div class="cell"><img src="5.jpg" alt="Image 5"></div>
+            <div class="cell"><img src="6.jpg" alt="Image 6"></div>
+            <div class="cell"><img src="7.jpg" alt="Image 7"></div>
+            <div class="cell"><img src="8.jpg" alt="Image 8"></div>
+            <div class="cell"><img src="9.jpg" alt="Image 9"></div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="previous-button">Previous</button>
+        <button class="next-button">Next</button>
+    </div>
+
+    <script>
+        var carousel = document.querySelector('.carousel');
+        var cellCount = 9;
+        var selectedIndex = 0;
+        var autoRotate;
+
+        function rotateCarousel() {
+            var angle = selectedIndex / cellCount * -360;
+            carousel.style.transform = 'translateZ(-200px) rotateY(' + angle + 'deg)';
+        }
+
+        function nextSlide() {
+            selectedIndex = (selectedIndex + 1) % cellCount;
+            rotateCarousel();
+        }
+
+        function previousSlide() {
+            selectedIndex = (selectedIndex - 1 + cellCount) % cellCount;
+            rotateCarousel();
+        }
+
+        function stopAutoRotate() {
+            clearInterval(autoRotate);
+        }
+
+        var prevButton = document.querySelector('.previous-button');
+        var nextButton = document.querySelector('.next-button');
+
+        prevButton.addEventListener('click', function() {
+            stopAutoRotate();
+            previousSlide();
+        });
+
+        nextButton.addEventListener('click', function() {
+            stopAutoRotate();
+            nextSlide();
+        });
+    </script>
+</body>
+
+</html>
